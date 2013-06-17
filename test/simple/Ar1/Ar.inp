@@ -1,0 +1,31 @@
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+    &SCF
+      SCF_GUESS restart
+      EPS_SCF 1.0E-5
+      MAX_SCF 30
+    &END SCF
+    &XC
+      &XC_FUNCTIONAL Pade
+      &END XC_FUNCTIONAL
+    &END XC
+  &END DFT
+  &SUBSYS
+    &CELL
+      ABC 10.0 10.0 10.0
+    &END CELL
+    &COORD
+        Ar 0.0 0.0 0.0
+    &END COORD
+    &KIND Ar
+      BASIS_SET DZVP-GTH-PADE
+      POTENTIAL GTH-PADE-q8
+    &END KIND
+  &END SUBSYS
+&END FORCE_EVAL
+
+&GLOBAL
+  PROJECT Ar
+  PRINT_LEVEL MEDIUM
+&END GLOBAL
