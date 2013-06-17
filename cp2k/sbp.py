@@ -37,7 +37,7 @@ class Container:
 
     #
     # methods
-    # 
+    #
 
     @classmethod
     def from_data(cls, data):
@@ -76,14 +76,14 @@ class Container:
         """Check whther `code` is valid, i.e. in the allowed range."""
 
         if not (code >=0 and code < len(cls._strings)):
-            raise SBPError, 'Invalid SBP kind code passed requested: %s', str(code) 
+            raise SBPError, 'Invalid SBP kind code passed requested: %s', str(code)
 
     def __init__(self, code, n, is_byte_count=False):
         """Construct the Container with the SBP kind given by `code`.
         If `is_byte_count` is True, `n` determines the number of bytes, otherwise
         it determines the number of data items.
         """
-        
+
         self.check_code(code)
 
         self.code = code
@@ -123,7 +123,7 @@ class Container:
 
 class Connection:
     """A Simple Binary Protocol connection.
-    
+
     Do not instantiate this directly, use Server or Client.
 
     Relies on `conn` being provided in derived classes.
@@ -161,7 +161,7 @@ class Connection:
 
         # receive the header
         header = self.conn.recv(Container.header_size)
-        
+
         # TODO: how to handle problems here?
         if header == '':
             raise RuntimeError
@@ -169,7 +169,7 @@ class Connection:
         container = Container.from_header(header)
 
         # TODO: use just one buffer and reinterpret the received data
-        
+
         # receive the actual data
         data_str = self.conn.recv(container.n_bytes)
 
@@ -188,7 +188,7 @@ class Connection:
 
 class Server(Connection):
     """A Simple Binary Protocol server.
-    
+
     Most functionality is implemented in Connection.
     """
 
@@ -215,13 +215,13 @@ class Server(Connection):
 
 class Client(Connection):
     """A Simple Binary Protocol client.
-    
+
     Most functionality is implemented in Connection.
     """
 
     def __init__(self, host='localhost', port=4329):
         """Connect to the socket at host:port."""
-        
+
         Connection.__init__(self)
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
